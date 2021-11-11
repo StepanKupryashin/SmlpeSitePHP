@@ -5,10 +5,12 @@ $mysqli = new mysqli();
 $mysqli->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, 1);
 $mysqli->real_connect("localhost", "root", "", "users");
 
-$result = $mysqli->query("SELECT password FROM users WHERE id = 1");
-$row = $result->fetch_assoc();
+// $result = $mysqli->query("SELECT * FROM users");
+// $row = $result->fetch_assoc();
 
-printf("password = %s (%s)\n", $row['password'], gettype($row['password']));
+
+
+
 
 
 function check_password($password, $login) {
@@ -25,7 +27,20 @@ function check_password($password, $login) {
     };
 };
 
-echo check_password('admin', 'admin');
 
+
+function register_user($login = null, $email = null, $password = null)
+{
+    $mysqli = new mysqli();
+    $mysqli->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, 1);
+    $mysqli->real_connect('localhost', 'root', '', 'users');
+    
+    $password = md5($password);
+
+    $result = $mysqli->query("INSERT INTO `users`(`login`, `email`, `password`) VALUES ('$login','$email','$password')");
+    return 200;
+}
+
+// echo register_user('test', 'test@mail.ru', 'test123');
 
 ?>
