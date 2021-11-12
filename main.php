@@ -3,40 +3,46 @@
 ?>
 <?php include "templates/header.php"?>
 
+<?php include "db.php"?>
+
 <!-- <h2>MAIN</h2> -->
 
 <?php
-if (array_key_exists('user', $_SESSION)) {
-    echo "Добро пожаловать " . $_SESSION['user'];
-}
+// if (array_key_exists('user', $_SESSION)) {
+//     echo "Добро пожаловать " . $_SESSION['user'];
+// }
 ?>
 
-<!-- ФОРМА Регистрации -->
- <form action="/reg.php" method="post" class='form-register'>
-     <label>Логин</label>
-     <input type="text" name="login">
+<div class="content">
+<?php 
+    $applications = get_complete_applications();
 
-     <label>E-mail</label>
-     <input type="email" name="email">
 
-     <label>Пароль</label>
-     <input type="password" name="password">
+    foreach ($applications as $i) {
+    echo "<div class='applications'>
+    <div class='applications-text'> Категория: ".$i[5]."</div>
+    <div class='applications-text'> Название: ".$i[1]."</div>";
+    if ($i[3] == 'Решена') {
+        echo "<div class='applications-text'>Статус:<div class='green-ball'></div></div>";
+    };
+    echo "<div class='applications-img'>"."<img src=".$i[6].">" .'</div>
+    </div>';
 
-     <label>Подтвердите пароль</label>
-     <input type="password" name="password_check">
-    
-    <button type='submit'>Зарегистрироваться</button>
- </form>
- <button onclick='window.location = "/login.php"'>Войти</button>
+    }
+ 
+    // foreach ($applications as $i) {
+    //     echo 'Название ' . $i[0] . "<br>";
+    //     echo 'Описание ' . $i[1] . "<br>";
+    //     echo "Сатус " . $i[2] . "<br>";
+    //     echo " Категория "  . $i[5] . " <br>";
+    //     echo "<img src='$i[6]'>";
 
- <?php
+    // }
 
- if (array_key_exists('register_msg', $_SESSION)) {
-    echo $_SESSION['register_msg'];
-    unset($_SESSION['register_msg']);
-    
- }
 
- ?>
+?>
+</div>
+
+
 
 <? include "templates/footer.php"?>

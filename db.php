@@ -41,6 +41,20 @@ function register_user($login = null, $email = null, $password = null)
     return 200;
 }
 
+
+function get_complete_applications() {
+
+    $mysqli = new mysqli();
+    $mysqli->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, 1);
+    $mysqli->real_connect('localhost', 'root', '', 'applications');
+
+    $result = $mysqli->query("SELECT * FROM applications WHERE status = 'Решена'");
+    $row = $result->fetch_all();
+    return $row;
+
+}
+
+
 // echo register_user('test', 'test@mail.ru', 'test123');
 
 ?>

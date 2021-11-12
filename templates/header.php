@@ -15,6 +15,11 @@
       };?></title>
 </head>
 <body>
+
     <div class="header">
-    <h1>HEADER</h1>
+        <div class="logo"></div>
+
+
+        <button onclick='window.location = "<? if (array_key_exists("user", $_SESSION)) { echo "/user_cabinet.php"; } else { echo "/login.php";}?>"'><? if  (array_key_exists("user", $_SESSION)) { echo "Личный кабинет\n" .$_SESSION['user']; } else { echo "Войти"; } ?></button>
+        <button onclick='window.location = "<? if (array_key_exists("user", $_SESSION)) { echo "/logout.php"; } else { echo "/reg_user.php";}?>"'><? if (array_key_exists('user', $_SESSION)) {echo "Выйти";} else { echo "Регистрация";}?></button>
     </div>
